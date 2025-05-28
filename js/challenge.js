@@ -18,18 +18,28 @@ setInterval(updateCounter, 1000)
 // addeventlistener
 
 let minus = document.getElementById('minus')
-minus.addEventListener("click", () =>
-    console.log("you clicked me")
-)
+minus.addEventListener("click", minusButton);
 
 //callback function to manipulate DOM - when minus is clicked - take counter and minus 1
+
+function minusButton() {
+let updatedNumber = parseInt(counter.innerText, 10)
+updatedNumber-=1;
+counter.innerText = updatedNumber.toString();
+return counter;
+}
 
 //  <button id='plus' > ➕ </button>
 
 let plus = document.getElementById('plus')
-plus.addEventListener("click", () =>
-    console.log("you clicked me too")
-)
+plus.addEventListener("click", plusButton)
+
+function plusButton() {
+let updatedNumber = parseInt(counter.innerText, 10)
+updatedNumber+=1;
+counter.innerText = updatedNumber.toString();
+return counter;
+}
 
 //  <button id='heart' > ❤️ </button>
 
