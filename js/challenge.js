@@ -4,7 +4,7 @@ let counter = document.getElementById('counter'); //=> counter = string
 let intervalId;
 let pause = document.getElementById('pause')
 let isPaused = false;
-
+let ul = document.querySelector("ul");
 //function for setInterval that loads when page loads
 function startCounter(){
 if (isPaused)
@@ -66,21 +66,40 @@ counter.innerText = updatedNumber.toString();
 return counter;
 }
 
-//  <button id='heart' > ❤️ </button>
+// append message for number liked
 
-let heart = document.getElementById('heart')
-heart.addEventListener("click", () =>
-    console.log("liked")
-)
+const heart = document.getElementById('heart')
+let likeCount = 0
+let counterLiked = []
 
-// const timesLiked = event?
-// const likes = document.getElementsByClass("likes")
-// add ul.append(li) => li `${counter.innerText} has been liked` + <span> `${times liked}` </span> "time"
-// if/else 'time' v 'times
+heart.addEventListener("click", (event => {
+    likeCount =+1
+    let li = document.createElement("li")
+    li.setAttribute('data-num' , counter.innerText)
+    li.setAttribute('data-liked', likeCount)
+    counterLiked.push(li.dataset);
+    console.log(counterLiked);
+       
+    
+    li.textContent = `${li.dataset.num} has been liked ${li.dataset.liked} times.`
+        ul.appendChild(li);
+    }))
 
 
+   
+    //const span = document.createElement("span");
+   //dataset?
+    
 
+//form input appended to dom
+const form = document.getElementById("comment-form")
+const commentList = document.getElementById("list")
 
-//form input  id="comment-input"
-//submit
-});
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const newComment = document.createElement("li");
+    newComment.innerText = event.target[0].value;
+    commentList.appendChild(newComment);
+})
+
+})
