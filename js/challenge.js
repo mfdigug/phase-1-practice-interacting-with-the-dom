@@ -1,9 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-
-// update counter
+// declare variables
 let counter = document.getElementById('counter'); //=> counter = string
+let intervalId;
+let pause = document.getElementById('pause')
+let isPaused = false;
 
+//function for setInterval that loads when page loads
+function startCounter(){
+if (isPaused)
+    isPaused = false;
+    intervalId = setInterval(updateCounter, 1000)
+}
+startCounter()
+
+
+//counter function as callback to setInterval that increments the counter
 function updateCounter(){
 let updatedNumber = parseInt(counter.innerText, 10)
 updatedNumber++
@@ -11,16 +22,30 @@ counter.innerText = updatedNumber.toString();
 return counter;
 }
 
-setInterval(updateCounter, 1000)    
 
+//add event listener to pause button which alters 'isPaused' variable
+pause.addEventListener("click", () => {
+    isPaused = !isPaused;
+    pauseCounter();
+})
 
-// <button id='minus' > ➖ </button>
-// addeventlistener
+//function called when pause button is clicked
+function pauseCounter(){
+    if (isPaused) {
+    isPaused = true;
+    clearInterval(intervalId);
+    pause.innerText = 'resume'
+    } else {
+    pause.innerText = 'pause'
+    updateCounter()
+    startCounter()
+    }
+}   
+
+// minus counter button & cb function
 
 let minus = document.getElementById('minus')
 minus.addEventListener("click", minusButton);
-
-//callback function to manipulate DOM - when minus is clicked - take counter and minus 1
 
 function minusButton() {
 let updatedNumber = parseInt(counter.innerText, 10)
@@ -29,7 +54,7 @@ counter.innerText = updatedNumber.toString();
 return counter;
 }
 
-//  <button id='plus' > ➕ </button>
+//  plus counter button & cb function
 
 let plus = document.getElementById('plus')
 plus.addEventListener("click", plusButton)
@@ -48,18 +73,14 @@ heart.addEventListener("click", () =>
     console.log("liked")
 )
 
-//  <button id='pause' > pause </button>
-let pause = document.getElementById('pause')
-pause.addEventListener("click", () =>
-    console.log("paused")
-)
+// const timesLiked = event?
+// const likes = document.getElementsByClass("likes")
+// add ul.append(li) => li `${counter.innerText} has been liked` + <span> `${times liked}` </span> "time"
+// if/else 'time' v 'times
 
 
-//clearInterval?
 
 
 //form input  id="comment-input"
 //submit
-
-
 });
